@@ -55,4 +55,13 @@ public struct WrappedDefault<T: UserDefaultsSerializable> {
         // and uses force unwrap
         self._publisher = CurrentValueSubject<T, Never>(userDefaults.fetch(keyName))
     }
+
+    /// Initializes the property wrapper.
+    /// - Parameters:
+    ///   - wrappedValue: The default value to register for the specified key.
+    ///   - keyName: The key for the value in `UserDefaults`.
+    ///   - userDefaults: The `UserDefaults` backing store. The default value is `.standard`.
+    public init<Key>(wrappedValue: T, key keyName: Key, userDefaults: UserDefaults = .standard) where Key: RawRepresentable, Key.RawValue == String {
+        self.init(wrappedValue: wrappedValue, key: keyName.rawValue, userDefaults: userDefaults)
+    }
 }

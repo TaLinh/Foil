@@ -54,4 +54,12 @@ public struct WrappedDefaultOptional<T: UserDefaultsSerializable> {
         self._userDefaults = userDefaults
         self._publisher = CurrentValueSubject<T?, Never>(userDefaults.fetchOptional(keyName))
     }
+
+    /// Initializes the property wrapper.
+    /// - Parameters:
+    ///   - keyName: The key for the value in `UserDefaults`.
+    ///   - userDefaults: The `UserDefaults` backing store. The default value is `.standard`.
+    public init<Key>(key keyName: Key, userDefaults: UserDefaults = .standard) where Key: RawRepresentable, Key.RawValue == String {
+        self.init(key: keyName.rawValue, userDefaults: userDefaults)
+    }
 }
